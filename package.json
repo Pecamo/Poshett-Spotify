@@ -1,0 +1,20 @@
+{
+  "name": "poshett",
+  "version": "0.0.1",
+  "description": "Display album covers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BinaryBrain/poshett.git"
+  },
+  "author": "Kewin Dousse <me@protectator.ch> (Protectator)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BinaryBrain/poshett/issues"
+  },
+  "homepage": "https://github.com/BinaryBrain/poshett#readme"
+}
