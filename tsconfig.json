@@ -5,6 +5,8 @@
     "target": "es5",
     "moduleResolution": "node",
     "allowJs": true,
-    "watch": true
+    "watch": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   }
 }

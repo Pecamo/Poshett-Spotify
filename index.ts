@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import { PoshettSpotify } from './spotify'
 
 const program = new Command();
 
@@ -11,7 +12,8 @@ program
   .parse(process.argv);
 
 if (program.spotify) {
-
+    const i = new PoshettSpotify();
+    i.run();
 }
 
 if (program.beets) {
