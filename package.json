@@ -23,6 +23,7 @@
   "dependencies": {
     "@types/node": "^10.12.18",
     "commander": "2.19.0",
+    "opn": "^5.4.0",
     "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {
