@@ -13,6 +13,7 @@ export class PoshettSpotify {
 
     SWA: SpotifyWebApi;
     port: number = 34567;
+    token: string;
 
     auth() {
         const appCreds = {
@@ -38,8 +39,22 @@ export class PoshettSpotify {
         console.log(authorizeURL);
     }
 
+    setAccessToken(token: string) {
+        this.token = token;
+    }
+
     run() {
         this.auth();
+    }
+
+    poll() {
+        this.SWA.getMyCurrentPlaybackState({})
+            .then((data: any) => {
+                // Output items
+                console.log("Now Playing: ", data.body);
+            }, function(err) {
+                console.log('Something went wrong!', err);
+            });
     }
 
 
