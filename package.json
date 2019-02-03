@@ -1,32 +1,32 @@
 {
-  "name": "poshett",
-  "version": "0.0.1",
-  "description": "Display album covers",
+  "name": "poshett-spotify",
+  "version": "0.1.0",
+  "description": "poshett-spotify is the common HTML server and visual interface part of the Poshett project.",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:spotify": "node ./dist/index.js -s",
-    "start:beets": "node ./dist/index.js -b",
+    "start": "node ./dist/index.js",
     "build": "tsc -p tsconfig.json",
-    "dev": "npm run build && npm run start"
+    "dev": "tsc -p tscondif.json -w"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BinaryBrain/poshett.git"
+    "url": "https://github.com/Pecamo/Poshett-Spotify.git"
   },
-  "author": "Sacha Bron & Kewin Dousse",
+  "author": "Kewin Dousse (Protectator) <me@protectator.ch>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BinaryBrain/poshett/issues"
+    "url": "https://github.com/Pecamo/Poshett-Spotify/issues"
   },
-  "homepage": "https://github.com/BinaryBrain/poshett#readme",
+  "homepage": "https://github.com/Pecamo/Poshett-Spotify#readme",
   "dependencies": {
-    "@types/node": "^10.12.18",
+    "@fnu/poshett-web": "0.3.1",
     "commander": "2.19.0",
-    "opn": "^5.4.0",
-    "spotify-web-api-node": "^4.0.0"
+    "opn": "5.4.0",
+    "spotify-web-api-node": "4.0.0"
   },
   "devDependencies": {
-    "typescript": "^3.2.4"
+    "typescript": "3.2.4",
+    "@types/node": "10.12.18"
   }
 }
