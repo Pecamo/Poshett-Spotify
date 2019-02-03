@@ -1,6 +1,7 @@
 // @ts-ignore
 import SpotifyWebApi from "spotify-web-api-node";
 import credentials from './config/credentials.json';
+import PoshettWeb from '@fnu/poshett-web';
 import http from 'http';
 // @ts-ignore
 import opn from 'opn';
@@ -11,51 +12,58 @@ const clientId = credentials.clientId;
 const state = 'test1';
 export class PoshettSpotify {
 
-    SWA: SpotifyWebApi;
-    port: number = 34567;
-    token: string;
+  SWA: SpotifyWebApi;
+  port: number = 34567;
+  token: string;
+  web: PoshettWeb;
 
-    auth() {
-        const appCreds = {
-            clientId: clientId,
-            clientSecret: credentials.clientSecret,
-            redirectUri: redirectUri,
-        };
+  init() {
+    this.web = new PoshettWeb();
+    this.web.initServer();
+    this.auth();
+  }
 
-        this.SWA = new SpotifyWebApi(appCreds);
+  start() {
+    this.web.startServer();
+  }
 
-        const authorizeURL = this.SWA.createAuthorizeURL(scopes, state);
+  auth() {
+    const appCreds = {
+      clientId: clientId,
+      clientSecret: credentials.clientSecret,
+      redirectUri: redirectUri,
+    };
 
-        /* Create an HTTP server to handle responses */
+    this.SWA = new SpotifyWebApi(appCreds);
 
-        http.createServer((req, res) => {
-            res.writeHead(200, {"Content-Type": "text/plain"});
-            res.write("Hello World");
-            res.end();
-        }).listen(this.port);
+    const authorizeURL = this.SWA.createAuthorizeURL(scopes, state);
 
-        opn(authorizeURL);
+    http.createServer((req, res) => { // TODO : Configure the web server instead
+      res.writeHead(200, {"Content-Type": "text/plain"});
+      res.write("Hello World");
+      res.end();
+    }).listen(this.port);
 
-        console.log(authorizeURL);
-    }
+    opn(authorizeURL);
 
-    setAccessToken(token: string) {
-        this.token = token;
-    }
+    console.log(authorizeURL);
+  }
 
-    run() {
-        this.auth();
-    }
+  setAccessToken(token: string) {
+    this.token = token;
+  }
 
-    poll() {
-        this.SWA.getMyCurrentPlaybackState({})
-            .then((data: any) => {
-                // Output items
-                console.log("Now Playing: ", data.body);
-            }, function(err) {
-                console.log('Something went wrong!', err);
-            });
-    }
+  run() {
+    this.auth();
+  }
 
-
+  poll() {
+    this.SWA.getMyCurrentPlaybackState({})
+      .then((data: any) => {
+        // Output items
+        console.log("Now Playing: ", data.body);
+      }, function(err: any) {
+        console.log('Something went wrong!', err);
+      });
+  }
 }
