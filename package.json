@@ -1,6 +1,6 @@
 {
   "name": "poshett-spotify",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "poshett-spotify is the common HTML server and visual interface part of the Poshett project.",
   "main": "index.ts",
   "scripts": {
