@@ -2,11 +2,12 @@
 
 import { Command } from 'commander';
 import { PoshettSpotify } from './spotify'
+import packageJson from './package.json';
 
 const program = new Command();
 
 program
-  .version('0.0.1')
+  .version(packageJson.version)
   .parse(process.argv);
 
 const poshettSpotify = new PoshettSpotify();

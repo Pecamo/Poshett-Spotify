@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/index.js",
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -p tscondif.json -w"
+    "dev": "tsc -p tsconfig.json -w"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Pecamo/Poshett-Spotify#readme",
   "dependencies": {
-    "@fnu/poshett-web": "0.3.1",
+    "@fnu/poshett-web": "0.3.9",
     "commander": "2.19.0",
     "opn": "5.4.0",
     "spotify-web-api-node": "4.0.0"
