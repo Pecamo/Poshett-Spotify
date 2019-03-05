@@ -53,6 +53,9 @@ export class PoshettSpotify {
                   })
                     .then((data: any) => {
                       const body = data.body as CurrentPlaybackState;
+                      if (!body.item) {
+                        return;
+                      }
                       const image = body.item.album.images[0];
                       if (this.lastPlayingItemId !== body.item.id) {
                         this.lastPlayingItemId = body.item.id;

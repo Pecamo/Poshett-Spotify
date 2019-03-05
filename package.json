@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Pecamo/Poshett-Spotify#readme",
   "dependencies": {
-    "@fnu/poshett-web": "0.3.9",
+    "@fnu/poshett-web": "1.0.0",
     "commander": "2.19.0",
     "opn": "5.4.0",
     "spotify-web-api-node": "4.0.0"
