@@ -11,10 +11,12 @@ import {CurrentPlaybackState} from "./spotify-api-types/types";
 const scopes = ['user-read-private', 'user-read-currently-playing', 'user-read-playback-state', 'user-read-recently-played'];
 const redirectUri = (port: number) => `http://localhost:${port}/spotify-callback`;
 const clientId = credentials.clientId;
+
 export class PoshettSpotify {
 
   SWA: SpotifyWebApi;
   port: number = 33033;
+  connected: boolean = false;
   web: PoshettWeb;
   lastAuthenticationState: string;
   lastPlayingItemId: any;
@@ -40,17 +42,19 @@ export class PoshettSpotify {
             this.SWA.authorizationCodeGrant(code).then(
               (data: any) => {
                 console.log('--- New client connected ! ---');
-                // console.log('The token expires in ' + data.body['expires_in']);
-                // console.log('The access token is ' + data.body['access_token']);
-                // console.log('The refresh token is ' + data.body['refresh_token']);
+                this.connected = true;
+                const timeout = data.body['expires_in'];
+                setTimeout(() => this.refreshToken(), timeout * 1000 - 30000);
+                console.log('The token expires in ' + data.body['expires_in']);
+                console.log('The access token is ' + data.body['access_token']);
+                console.log('The refresh token is ' + data.body['refresh_token']);
 
                 // Set the access token on the API object to use it in later calls
                 this.SWA.setAccessToken(data.body['access_token']);
                 this.SWA.setRefreshToken(data.body['refresh_token']);
 
                 this.polling = setInterval(() => {
-                  this.SWA.getMyCurrentPlaybackState({
-                  })
+                  this.SWA.getMyCurrentPlaybackState({})
                     .then((data: any) => {
                       const body = data.body as CurrentPlaybackState;
                       if (!body.item) {
@@ -87,6 +91,26 @@ export class PoshettSpotify {
         }
       });
     });
+  }
+
+  refreshToken() {
+    if (!this.connected) {
+      console.log('Disconnected from Spotify account.');
+      return;
+    }
+    this.SWA.refreshAccessToken()
+      .then((data : any) => {
+        console.log('The access token has been refreshed.');
+        this.SWA.setAccessToken(data.body['access_token']);
+        const timeout = data.body['expires_in'];
+        setTimeout(() => this.refreshToken(), timeout * 1000 - 30000);
+      },
+      (err: any) => {
+        console.warn('Could not refresh access token', err);
+        console.warn('Trying to refresh again in 10 seconds...');
+        setTimeout(() => this.refreshToken(), 10 * 1000);
+      }
+    );
   }
 
   start() {
